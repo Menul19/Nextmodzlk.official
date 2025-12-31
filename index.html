@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextModz LK | Official Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;600&display=swap');
+
+        :root {
+            --sky-top: #020111;
+            --sky-bottom: #191621;
+            --mtn-1: #080d26;
+            --mtn-2: #05091d;
+            --accent: #00e5ff;
+            --cloud-color: rgba(255, 255, 255, 0.1);
+            --modal-bg: rgba(20, 20, 30, 0.95);
+        }
+
+        .light-theme {
+            --sky-top: #4facfe;
+            --sky-bottom: #00f2fe;
+            --mtn-1: #2e7d32;
+            --mtn-2: #1b5e20;
+            --accent: #1a237e;
+            --cloud-color: rgba(255, 255, 255, 0.6);
+            --modal-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            transition: 1.5s ease;
+        }
+
+        .cloud-system { position: absolute; width: 100%; height: 100%; z-index: 1; }
+        .cloud {
+            position: absolute; background: var(--cloud-color);
+            filter: blur(40px); border-radius: 50%;
+            animation: move linear infinite;
+        }
+        @keyframes move {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(110vw); }
+        }
+
+        .mountain-container { position: absolute; bottom: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        .mtn {
+            position: absolute; bottom: 0; width: 100%; height: 40%;
+            background: var(--mtn-1);
+            clip-path: polygon(0% 100%, 15% 30%, 35% 70%, 50% 10%, 70% 60%, 85% 25%, 100% 100%);
+            transition: 1.5s;
+        }
+        .mtn-back {
+            height: 55%; opacity: 0.5; background: var(--mtn-2);
+            clip-path: polygon(0% 100%, 10% 40%, 25% 80%, 40% 20%, 60% 70%, 80% 15%, 100% 100%);
+        }
+
+        .hero {
+            position: relative; z-index: 10; text-align: center;
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+            padding: 50px 70px; border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+        h1 { font-family: 'Syncopate', sans-serif; font-size: clamp(2.5rem, 8vw, 4.5rem); color: #fff; line-height: 0.9; }
+        .highlight { color: var(--accent); text-shadow: 0 0 20px var(--accent); }
+
+        .sidebar { position: absolute; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+        .side-btn {
+            background: rgba(255, 255, 255, 0.1); color: #fff; padding: 15px 25px;
+            border-radius: 12px; text-decoration: none; font-weight: 600;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s; text-align: center; cursor: pointer;
+        }
+        .side-btn:hover { background: var(--accent); color: #000; transform: translateX(-10px); }
+
+        .modal {
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px); justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: var(--modal-bg); padding: 40px; border-radius: 20px;
+            max-width: 500px; width: 90%; color: #fff; text-align: center;
+            border: 2px solid var(--accent); position: relative;
+        }
+        .light-theme .modal-content { color: #333; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: var(--accent); }
+        .dl-list { list-style: none; margin-top: 20px; }
+        .dl-list li { margin: 10px 0; }
+        .dl-list a { color: var(--accent); text-decoration: none; font-weight: bold; background: rgba(255,255,255,0.05); padding: 12px 15px; border-radius: 8px; display: block; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+        .dl-list a:hover { background: var(--accent); color: #000; transform: scale(1.05); }
+
+        footer {
+            position: absolute; bottom: 15px; width: 100%; text-align: center;
+            z-index: 10; color: rgba(255,255,255,0.5); font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .mode-toggle { position: absolute; top: 30px; left: 30px; z-index: 100; }
+        #theme-btn { padding: 12px 25px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; background: #fff; color: #333; }
+
+    </style>
+</head>
+<body class="dark-theme">
+
+    <div class="mode-toggle">
+        <button id="theme-btn">🌙 NIGHT MODE</button>
+    </div>
+
+    <div class="cloud-system">
+        <div class="cloud" style="width: 400px; height: 150px; top: 10%; left: -10%; animation-duration: 40s;"></div>
+        <div class="cloud" style="width: 600px; height: 200px; top: 25%; left: -20%; animation-duration: 60s; opacity: 0.15;"></div>
+    </div>
+
+    <div class="mountain-container">
+        <div class="mtn mtn-back"></div>
+        <div class="mtn"></div>
+    </div>
+
+    <div class="hero">
+        <h1>NEXT <br> <span class="highlight">MODZ</span> LK</h1>
+        <p style="letter-spacing: 5px; margin-top: 10px; color: rgba(255,255,255,0.7);">OFFICIAL GAMING HUB</p>
+    </div>
+
+    <div class="sidebar">
+        <a href="https://youtube.com/@nextmodzlk" target="_blank" class="side-btn">📺 YOUTUBE</a>
+        <div class="side-btn" onclick="openModal('downloadModal')">📥 DOWNLOADS</div>
+        <div class="side-btn" onclick="openModal('aboutModal')">🎮 ABOUT ME</div>
+    </div>
+
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('downloadModal')">&times;</span>
+            <h2 class="highlight">DOWNLOADS</h2>
+            <p style="margin-bottom: 15px;">ඔබට අවශ්‍ය Mod එක පහතින් බාගත කරගන්න.</p>
+            <ul class="dl-list">
+                <li><a href="https://sub4unlock.io/Nc63p" target="_blank">🪜 Custom Ladder</a></li>
+                <li><a href="https://sub4unlock.io/c5Xqe" target="_blank">🚌 Bus Mod Livery</a></li>
+                <li><a href="https://sub4unlock.io/OvjRQ" target="_blank">🏎️ Custom Spoiler</a></li>
+                <li><a href="https://sub4unlock.io/yQVhR" target="_blank">🛡️ Cham Body Kit</a></li>
+                <li><a href="https://sub4unlock.io/3jz6E" target="_blank">🎁 X-Mas Gift</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('aboutModal')">&times;</span>
+            <h2 class="highlight">ABOUT ME</h2>
+            <p style="margin-top: 15px; line-height: 1.6;">
+                සාදරයෙන් පිළිගන්නවා <b>NextModz LK</b> වෙත! <br><br>
+                මම මගේ YouTube චැනල් එක හරහා විවිධ ක්‍රීඩා වලට අදාළ Mods සහ Gaming Tutorials සිංහලෙන් ඔබ වෙත රැගෙන එනවා. අපගේ අරමුණ ශ්‍රී ලංකාවේ Gaming Community එකට අලුත් අත්දැකීම් ලබා දීමයි.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        DESIGNED BY <b>NEXTMODZ LK</b> | © 2024 ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        const btn = document.getElementById("theme-btn");
+        const body = document.body;
+
+        btn.onclick = function() {
+            body.classList.toggle("light-theme");
+            btn.innerText = body.classList.contains("light-theme") ? "☀️ DAY MODE" : "🌙 NIGHT MODE";
+        };
+
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
