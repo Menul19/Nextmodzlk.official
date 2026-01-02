@@ -94,10 +94,14 @@
         }
         .light-theme .modal-content { color: #333; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: var(--accent); }
-        .dl-list { list-style: none; margin-top: 20px; }
+        .dl-list { list-style: none; margin-top: 20px; max-height: 350px; overflow-y: auto; padding-right: 10px; }
         .dl-list li { margin: 10px 0; }
         .dl-list a { color: var(--accent); text-decoration: none; font-weight: bold; background: rgba(255,255,255,0.05); padding: 12px 15px; border-radius: 8px; display: block; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
         .dl-list a:hover { background: var(--accent); color: #000; transform: scale(1.05); }
+
+        /* Scrollbar styling for modal */
+        .dl-list::-webkit-scrollbar { width: 5px; }
+        .dl-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
         footer {
             position: absolute; bottom: 15px; width: 100%; text-align: center;
@@ -143,6 +147,7 @@
             <h2 class="highlight">DOWNLOADS</h2>
             <p style="margin-bottom: 15px;">ඔබට අවශ්‍ය Mod එක පහතින් බාගත කරගන්න.</p>
             <ul class="dl-list">
+                <li><a href="https://sub4unlock.io/52Bra" target="_blank">🎡 Rim Cup</a></li>
                 <li><a href="https://sub4unlock.io/Nc63p" target="_blank">🪜 Custom Ladder</a></li>
                 <li><a href="https://sub4unlock.io/c5Xqe" target="_blank">🚌 Bus Mod Livery</a></li>
                 <li><a href="https://sub4unlock.io/OvjRQ" target="_blank">🏎️ Custom Spoiler</a></li>
